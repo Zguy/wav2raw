@@ -4,12 +4,12 @@
 #include <string>
 #include <fstream>
 
-void print_usage() 
+void print_usage()
 {
 	std::cout << "Usage: wav2raw file1.wav [file2.wav] [file3.wav] ..." << std::endl;
 }
 
-void process_file(const std::string &filename) 
+void process_file(const std::string &filename)
 {
 	std::cout << "Processing \"" << filename << "\"..." << std::endl;
 	WaveFile wavFile(filename);
@@ -23,11 +23,12 @@ void process_file(const std::string &filename)
 		case WaveFile::Meta::PCM: audioFormat = "PCM"; break;
 		}
 
-		std::cout << "Meta data:\n"
-			           " - Audio format : " << audioFormat << "\n"
-								 " - Channels     : " << meta.numChannels << "\n"
-								 " - Sample rate  : " << meta.sampleRate << "\n"
-								 " - Sample size  : " << meta.bitsPerSample << " bits" << std::endl;
+		std::cout <<
+			"Meta data:\n"
+			" - Audio format : " << audioFormat << "\n"
+			" - Channels     : " << meta.numChannels << "\n"
+			" - Sample rate  : " << meta.sampleRate << "\n"
+			" - Sample size  : " << meta.bitsPerSample << " bits" << std::endl;
 
 		std::string filenameSansExt = filename.substr(0, filename.find_last_of('.'));
 		std::string filenameRaw = filenameSansExt + ".raw";
