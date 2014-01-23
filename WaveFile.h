@@ -3,18 +3,13 @@
 
 #include <string>
 
+///\note All meta data is undefined if IsLoaded() == false
 class WaveFile
 {
 public:
-	struct Meta
+	enum AudioFormat
 	{
-		enum AudioFormat
-		{
-			PCM = 1
-		} audioFormat;
-		unsigned int numChannels;
-		unsigned int sampleRate;
-		unsigned int bitsPerSample;
+		PCM = 1
 	};
 
 	WaveFile();
@@ -29,10 +24,23 @@ public:
 		return (data != nullptr && size != 0);
 	}
 
-	inline const Meta &GetMeta() const
+	inline AudioFormat GetAudioFormat() const
 	{
-		return meta;
+		return meta.audioFormat;
 	}
+	inline unsigned int GetNumChannels() const
+	{
+		return meta.numChannels;
+	}
+	inline unsigned int GetSampleRate() const
+	{
+		return meta.sampleRate;
+	}
+	inline unsigned int GetBitsPerSample() const
+	{
+		return meta.bitsPerSample;
+	}
+
 	inline const char *GetData() const
 	{
 		return data;
@@ -43,7 +51,13 @@ public:
 	}
 
 private:
-	Meta meta;
+	struct Meta
+	{
+		AudioFormat audioFormat;
+		unsigned int numChannels;
+		unsigned int sampleRate;
+		unsigned int bitsPerSample;
+	} meta;
 	char *data;
 	std::size_t size;
 };

@@ -153,7 +153,7 @@ bool WaveFile::Load(const std::string &filename)
 	}
 
 	// Fill meta struct
-	meta.audioFormat   = static_cast<Meta::AudioFormat>(header.fmt.audioFormat);
+	meta.audioFormat   = static_cast<AudioFormat>(header.fmt.audioFormat);
 	meta.numChannels   = header.fmt.numChannels;
 	meta.sampleRate    = header.fmt.sampleRate;
 	meta.bitsPerSample = header.fmt.bitsPerSample;
