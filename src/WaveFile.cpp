@@ -54,7 +54,7 @@ bool WaveFile::Load(const std::string &filename)
 
 	if (!file.is_open())
 	{
-		std::cout << "Error: Could not open file." << std::endl;
+		std::cerr << "Error: Could not open file." << std::endl;
 		return false;
 	}
 
@@ -79,7 +79,7 @@ bool WaveFile::Load(const std::string &filename)
 
 				if (header.riff.format != 'EVAW')
 				{
-					std::cout << "Error: Not a valid WAVE file." << std::endl;
+					std::cerr << "Error: Not a valid WAVE file." << std::endl;
 					return false;
 				}
 
@@ -98,22 +98,22 @@ bool WaveFile::Load(const std::string &filename)
 
 				if (header.fmt.audioFormat != PCM)
 				{
-					std::cout << "Error: Not in PCM format" << std::endl;
+					std::cerr << "Error: Not in PCM format" << std::endl;
 					return false;
 				}
 				if (header.fmt.bitsPerSample % 2 != 0)
 				{
-					std::cout << "Error: Invalid number of bits per sample" << std::endl;
+					std::cerr << "Error: Invalid number of bits per sample" << std::endl;
 					return false;
 				}
 				if (header.fmt.byteRate != (header.fmt.sampleRate * header.fmt.numChannels * header.fmt.bitsPerSample / 8))
 				{
-					std::cout << "Error: Invalid byte rate" << std::endl;
+					std::cerr << "Error: Invalid byte rate" << std::endl;
 					return false;
 				}
 				if (header.fmt.blockAlign != (header.fmt.numChannels * header.fmt.bitsPerSample / 8))
 				{
-					std::cout << "Error: Invalid block align" << std::endl;
+					std::cerr << "Error: Invalid block align" << std::endl;
 					return false;
 				}
 
@@ -138,17 +138,17 @@ bool WaveFile::Load(const std::string &filename)
 	// Check that we got all chunks
 	if (header.riff.chunkID != 'FFIR')
 	{
-		std::cout << "Error: Missing RIFF chunk." << std::endl;
+		std::cerr << "Error: Missing RIFF chunk." << std::endl;
 		return false;
 	}
 	if (header.fmt.chunkID != ' tmf')
 	{
-		std::cout << "Error: Missing fmt chunk." << std::endl;
+		std::cerr << "Error: Missing fmt chunk." << std::endl;
 		return false;
 	}
 	if (data == nullptr || size == 0)
 	{
-		std::cout << "Error: Missing data chunk." << std::endl;
+		std::cerr << "Error: Missing data chunk." << std::endl;
 		return false;
 	}
 

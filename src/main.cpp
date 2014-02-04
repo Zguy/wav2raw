@@ -34,7 +34,7 @@ void process_file(const std::string &filename)
 
 		if (!rawFile.is_open())
 		{
-			std::cout << "Error: Failed to open output file \"" << filenameRaw << "\"." << std::endl;
+			std::cerr << "Error: Failed to open output file \"" << filenameRaw << "\"." << std::endl;
 			return;
 		}
 
