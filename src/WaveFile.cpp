@@ -96,7 +96,7 @@ bool WaveFile::Load(const std::string &filename)
 				file.read(reinterpret_cast<char*>(&header.fmt.blockAlign), sizeof(std::uint16_t));
 				file.read(reinterpret_cast<char*>(&header.fmt.bitsPerSample), sizeof(std::uint16_t));
 
-				if (header.fmt.audioFormat != 1) // PCM
+				if (header.fmt.audioFormat != PCM)
 				{
 					std::cout << "Error: Not in PCM format" << std::endl;
 					return false;
