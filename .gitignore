@@ -1,7 +1,0 @@
-bin
-ipch
-obj
-*.sdf
-*.opensdf
-*.suo
-*.raw
