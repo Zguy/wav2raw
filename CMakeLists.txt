@@ -10,4 +10,9 @@ set (SRC
 	"${SRCROOT}/WaveFile.h"
 )
 
+add_compile_options (
+	$<$<CXX_COMPILER_ID:GNU>:-std=c++11>
+	$<$<CXX_COMPILER_ID:GNU>:-Wno-multichar>
+)
+
 add_executable (wav2raw ${SRC})
