@@ -132,6 +132,8 @@ bool WaveFile::Load(const std::string &filename)
 		default:
 			{
 				file.ignore(chunkSize);
+
+				break;
 			}
 		}
 	}
