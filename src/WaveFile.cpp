@@ -31,8 +31,14 @@ THE SOFTWARE.
 
 namespace
 {
+	static const std::uint32_t RIFF_ID = 'FFIR';
+	static const std::uint32_t FMT_ID  = ' tmf';
+	static const std::uint32_t DATA_ID = 'atad';
+
 	struct RIFFChunk
 	{
+		static const std::uint32_t FORMAT_WAVE = 'EVAW';
+
 		std::uint32_t chunkID;
 		std::uint32_t chunkSize;
 		std::uint32_t format;
@@ -95,13 +101,13 @@ bool WaveFile::Load(const std::string &filename)
 
 		switch (chunkID)
 		{
-		case 'FFIR':
+		case RIFF_ID:
 			{
 				header.riff.chunkID = chunkID;
 				header.riff.chunkSize = chunkSize;
 				file.read(reinterpret_cast<char*>(&header.riff.format), sizeof(std::uint32_t));
 
-				if (header.riff.format != 'EVAW')
+				if (header.riff.format != RIFFChunk::FORMAT_WAVE)
 				{
 					std::cerr << "Error: Not a valid WAVE file." << std::endl;
 					return false;
@@ -109,7 +115,7 @@ bool WaveFile::Load(const std::string &filename)
 
 				break;
 			}
-		case ' tmf':
+		case FMT_ID:
 			{
 				header.fmt.chunkID = chunkID;
 				header.fmt.chunkSize = chunkSize;
@@ -138,7 +144,7 @@ bool WaveFile::Load(const std::string &filename)
 
 				break;
 			}
-		case 'atad':
+		case DATA_ID:
 			{
 				assert(data == nullptr);
 				size = chunkSize;
@@ -157,12 +163,12 @@ bool WaveFile::Load(const std::string &filename)
 	}
 
 	// Check that we got all chunks
-	if (header.riff.chunkID != 'FFIR')
+	if (header.riff.chunkID != RIFF_ID)
 	{
 		std::cerr << "Error: Missing RIFF chunk." << std::endl;
 		return false;
 	}
-	if (header.fmt.chunkID != ' tmf')
+	if (header.fmt.chunkID != FMT_ID)
 	{
 		std::cerr << "Error: Missing fmt chunk." << std::endl;
 		return false;
