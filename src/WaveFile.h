@@ -32,7 +32,8 @@ class WaveFile
 public:
 	enum AudioFormat
 	{
-		PCM = 1
+		PCM        = 1,
+		IEEE_FLOAT = 3
 	};
 
 	WaveFile();

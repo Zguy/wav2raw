@@ -120,11 +120,6 @@ bool WaveFile::Load(const std::string &filename)
 				file.read(reinterpret_cast<char*>(&header.fmt.blockAlign), sizeof(std::uint16_t));
 				file.read(reinterpret_cast<char*>(&header.fmt.bitsPerSample), sizeof(std::uint16_t));
 
-				if (header.fmt.audioFormat != PCM)
-				{
-					std::cerr << "Error: Not in PCM format" << std::endl;
-					return false;
-				}
 				if (header.fmt.bitsPerSample % 2 != 0)
 				{
 					std::cerr << "Error: Invalid number of bits per sample" << std::endl;
@@ -172,7 +167,7 @@ bool WaveFile::Load(const std::string &filename)
 		std::cerr << "Error: Missing fmt chunk." << std::endl;
 		return false;
 	}
-	if (data == nullptr || size == 0)
+	if (data == nullptr)
 	{
 		std::cerr << "Error: Missing data chunk." << std::endl;
 		return false;
@@ -198,6 +193,7 @@ std::string WaveFile::GetAudioFormatString() const
 	switch (meta.audioFormat)
 	{
 	case WaveFile::PCM: return "PCM";
+	case WaveFile::IEEE_FLOAT: return "IEEE float";
 	default: return "Unknown";
 	}
 }
