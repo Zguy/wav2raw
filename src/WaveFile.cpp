@@ -116,6 +116,7 @@ bool WaveFile::Load(const std::string &filename)
 				if (header.riff.format != RIFFChunk::FORMAT_WAVE)
 				{
 					std::cerr << "Error: Not a valid WAVE file." << std::endl;
+					Unload();
 					return false;
 				}
 
@@ -135,16 +136,19 @@ bool WaveFile::Load(const std::string &filename)
 				if (header.fmt.bitsPerSample % 2 != 0)
 				{
 					std::cerr << "Error: Invalid number of bits per sample" << std::endl;
+					Unload();
 					return false;
 				}
 				if (header.fmt.byteRate != (header.fmt.sampleRate * header.fmt.numChannels * header.fmt.bitsPerSample / 8))
 				{
 					std::cerr << "Error: Invalid byte rate" << std::endl;
+					Unload();
 					return false;
 				}
 				if (header.fmt.blockAlign != (header.fmt.numChannels * header.fmt.bitsPerSample / 8))
 				{
 					std::cerr << "Error: Invalid block align" << std::endl;
+					Unload();
 					return false;
 				}
 
@@ -172,11 +176,13 @@ bool WaveFile::Load(const std::string &filename)
 	if (header.riff.chunkID != RIFF_ID)
 	{
 		std::cerr << "Error: Missing RIFF chunk." << std::endl;
+		Unload();
 		return false;
 	}
 	if (header.fmt.chunkID != FMT_ID)
 	{
 		std::cerr << "Error: Missing fmt chunk." << std::endl;
+		Unload();
 		return false;
 	}
 	if (data == nullptr)
