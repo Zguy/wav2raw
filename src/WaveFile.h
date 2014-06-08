@@ -42,36 +42,15 @@ public:
 	bool Load(const std::string &filename);
 	void Unload();
 
-	inline bool IsLoaded() const
-	{
-		return (data != nullptr && size != 0);
-	}
+	inline bool IsLoaded() const { return (data != nullptr); }
 
-	inline AudioFormat GetAudioFormat() const
-	{
-		return meta.audioFormat;
-	}
-	inline unsigned int GetNumChannels() const
-	{
-		return meta.numChannels;
-	}
-	inline unsigned int GetSampleRate() const
-	{
-		return meta.sampleRate;
-	}
-	inline unsigned int GetBitsPerSample() const
-	{
-		return meta.bitsPerSample;
-	}
+	inline AudioFormat GetAudioFormat() const { return meta.audioFormat; }
+	inline unsigned int GetNumChannels() const { return meta.numChannels; }
+	inline unsigned int GetSampleRate() const { return meta.sampleRate; }
+	inline unsigned int GetBitsPerSample() const { return meta.bitsPerSample; }
 
-	inline const char *GetData() const
-	{
-		return data;
-	}
-	inline std::size_t GetDataSize() const
-	{
-		return size;
-	}
+	inline const char *GetData() const { return data; }
+	inline std::size_t GetDataSize() const { return size; }
 
 private:
 	struct Meta
