@@ -192,3 +192,12 @@ void WaveFile::Unload()
 	data = nullptr;
 	size = 0;
 }
+
+std::string WaveFile::GetAudioFormatString() const
+{
+	switch (meta.audioFormat)
+	{
+	case WaveFile::PCM: return "PCM";
+	default: return "Unknown";
+	}
+}

@@ -38,15 +38,9 @@ void ProcessFile(const std::string &filename)
 	WaveFile wavFile(filename);
 	if (wavFile.IsLoaded())
 	{
-		std::string audioFormat = "Unknown";
-		switch (wavFile.GetAudioFormat())
-		{
-		case WaveFile::PCM: audioFormat = "PCM"; break;
-		}
-
 		std::cout <<
 			"Meta data:\n"
-			" - Audio format : " << audioFormat << "\n"
+			" - Audio format : " << wavFile.GetAudioFormatString() << "\n"
 			" - Channels     : " << wavFile.GetNumChannels() << "\n"
 			" - Sample rate  : " << wavFile.GetSampleRate() << "\n"
 			" - Sample size  : " << wavFile.GetBitsPerSample() << " bits" << std::endl;

@@ -45,6 +45,8 @@ public:
 	inline bool IsLoaded() const { return (data != nullptr); }
 
 	inline AudioFormat GetAudioFormat() const { return meta.audioFormat; }
+	std::string GetAudioFormatString() const;
+
 	inline unsigned int GetNumChannels() const { return meta.numChannels; }
 	inline unsigned int GetSampleRate() const { return meta.sampleRate; }
 	inline unsigned int GetBitsPerSample() const { return meta.bitsPerSample; }
