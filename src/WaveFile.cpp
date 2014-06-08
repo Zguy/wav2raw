@@ -59,6 +59,12 @@ namespace
 		RIFFChunk riff;
 		fmtChunk fmt;
 	};
+
+	template<typename T>
+	inline void ReadField(std::istream &stream, T *field)
+	{
+		stream.read(reinterpret_cast<char*>(field), sizeof(T));
+	}
 }
 
 WaveFile::WaveFile() : data(nullptr), size(0)
@@ -96,8 +102,8 @@ bool WaveFile::Load(const std::string &filename)
 		std::uint32_t chunkID;
 		std::uint32_t chunkSize;
 
-		file.read(reinterpret_cast<char*>(&chunkID), sizeof(std::uint32_t));
-		file.read(reinterpret_cast<char*>(&chunkSize), sizeof(std::uint32_t));
+		ReadField(file, &chunkID);
+		ReadField(file, &chunkSize);
 
 		switch (chunkID)
 		{
@@ -105,7 +111,7 @@ bool WaveFile::Load(const std::string &filename)
 			{
 				header.riff.chunkID = chunkID;
 				header.riff.chunkSize = chunkSize;
-				file.read(reinterpret_cast<char*>(&header.riff.format), sizeof(std::uint32_t));
+				ReadField(file, &header.riff.format);
 
 				if (header.riff.format != RIFFChunk::FORMAT_WAVE)
 				{
@@ -119,12 +125,12 @@ bool WaveFile::Load(const std::string &filename)
 			{
 				header.fmt.chunkID = chunkID;
 				header.fmt.chunkSize = chunkSize;
-				file.read(reinterpret_cast<char*>(&header.fmt.audioFormat), sizeof(std::uint16_t));
-				file.read(reinterpret_cast<char*>(&header.fmt.numChannels), sizeof(std::uint16_t));
-				file.read(reinterpret_cast<char*>(&header.fmt.sampleRate), sizeof(std::uint32_t));
-				file.read(reinterpret_cast<char*>(&header.fmt.byteRate), sizeof(std::uint32_t));
-				file.read(reinterpret_cast<char*>(&header.fmt.blockAlign), sizeof(std::uint16_t));
-				file.read(reinterpret_cast<char*>(&header.fmt.bitsPerSample), sizeof(std::uint16_t));
+				ReadField(file, &header.fmt.audioFormat);
+				ReadField(file, &header.fmt.numChannels);
+				ReadField(file, &header.fmt.sampleRate);
+				ReadField(file, &header.fmt.byteRate);
+				ReadField(file, &header.fmt.blockAlign);
+				ReadField(file, &header.fmt.bitsPerSample);
 
 				if (header.fmt.bitsPerSample % 2 != 0)
 				{
