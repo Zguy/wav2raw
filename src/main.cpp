@@ -27,12 +27,12 @@ THE SOFTWARE.
 #include <string>
 #include <fstream>
 
-void print_usage()
+void PrintUsage()
 {
 	std::cout << "Usage: wav2raw file1.wav [file2.wav] [file3.wav] ..." << std::endl;
 }
 
-void process_file(const std::string &filename)
+void ProcessFile(const std::string &filename)
 {
 	std::cout << "Processing \"" << filename << "\"..." << std::endl;
 	WaveFile wavFile(filename);
@@ -72,14 +72,14 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		print_usage();
+		PrintUsage();
 		return 0;
 	}
 
 	for (int i = 1; i < argc; ++i)
 	{
 		std::string filename = argv[i];
-		process_file(filename);
+		ProcessFile(filename);
 	}
 
 	return 0;
