@@ -45,24 +45,22 @@ public:
 
 	inline bool IsLoaded() const { return (data != nullptr); }
 
-	inline AudioFormat GetAudioFormat() const { return meta.audioFormat; }
+	inline AudioFormat GetAudioFormat() const { return audioFormat; }
 	std::string GetAudioFormatString() const;
 
-	inline unsigned int GetNumChannels() const { return meta.numChannels; }
-	inline unsigned int GetSampleRate() const { return meta.sampleRate; }
-	inline unsigned int GetBitsPerSample() const { return meta.bitsPerSample; }
+	inline unsigned int GetNumChannels() const { return numChannels; }
+	inline unsigned int GetSampleRate() const { return sampleRate; }
+	inline unsigned int GetBitsPerSample() const { return bitsPerSample; }
 
 	inline const char *GetData() const { return data; }
 	inline std::size_t GetDataSize() const { return size; }
 
 private:
-	struct Meta
-	{
-		AudioFormat audioFormat;
-		unsigned int numChannels;
-		unsigned int sampleRate;
-		unsigned int bitsPerSample;
-	} meta;
+	AudioFormat audioFormat;
+	unsigned int numChannels;
+	unsigned int sampleRate;
+	unsigned int bitsPerSample;
+
 	char *data;
 	std::size_t size;
 };

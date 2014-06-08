@@ -191,11 +191,11 @@ bool WaveFile::Load(const std::string &filename)
 		return false;
 	}
 
-	// Fill meta struct
-	meta.audioFormat   = static_cast<AudioFormat>(header.fmt.audioFormat);
-	meta.numChannels   = header.fmt.numChannels;
-	meta.sampleRate    = header.fmt.sampleRate;
-	meta.bitsPerSample = header.fmt.bitsPerSample;
+	// Fill metadata
+	audioFormat   = static_cast<AudioFormat>(header.fmt.audioFormat);
+	numChannels   = header.fmt.numChannels;
+	sampleRate    = header.fmt.sampleRate;
+	bitsPerSample = header.fmt.bitsPerSample;
 
 	return true;
 }
@@ -208,10 +208,10 @@ void WaveFile::Unload()
 
 std::string WaveFile::GetAudioFormatString() const
 {
-	switch (meta.audioFormat)
+	switch (audioFormat)
 	{
-	case WaveFile::PCM: return "PCM";
-	case WaveFile::IEEE_FLOAT: return "IEEE float";
-	default: return "Unknown";
+	case PCM:        return "PCM";
+	case IEEE_FLOAT: return "IEEE float";
+	default:         return "Unknown";
 	}
 }
