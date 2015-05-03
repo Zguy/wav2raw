@@ -31,9 +31,9 @@ THE SOFTWARE.
 
 namespace
 {
-	static const std::uint32_t RIFF_ID = 'FFIR';
-	static const std::uint32_t FMT_ID  = ' tmf';
-	static const std::uint32_t DATA_ID = 'atad';
+	const std::uint32_t RIFF_ID = 'FFIR';
+	const std::uint32_t FMT_ID  = ' tmf';
+	const std::uint32_t DATA_ID = 'atad';
 
 	struct RIFFChunk
 	{
